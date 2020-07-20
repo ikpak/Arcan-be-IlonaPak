@@ -1,9 +1,15 @@
 const Event = require("../models/event");
 
-exports.getEvents = async(req, res) => {
-    const events = await Event.find()
+exports.getAllEvents = async(req, res) => {
+    const events = await Event.find(req.query)
 
     res.send(events)
+}
+
+exports.getEvent = async(req, res) => {
+  const event = await Event.findOne(req.query)
+
+  res.send(event)
 }
 
 exports.createEvent = async (req, res) => {
