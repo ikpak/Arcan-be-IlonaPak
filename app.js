@@ -10,6 +10,7 @@ var usersRouter = require("./routes/users");
 const eventRouter = require("./routes/events");
 const authRouter = require("./routes/auth")
 const newsRouter = require("./routes/news")
+const mediaRouter = require("./routes/media")
 
 require("dotenv").config()
 
@@ -31,5 +32,6 @@ app.use("/users", usersRouter);
 app.use("/auth", authRouter)
 app.use("/events", eventRouter);
 app.use("/news", newsRouter)
+app.use("/media", mediaRouter)
 
 module.exports = app;

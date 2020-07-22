@@ -2,7 +2,32 @@ const mongoose = require("mongoose")
 
 const eventSchema = new mongoose.Schema({
     date: {
+        type: Date,
+        required: true
+    },
+
+    startTime: {
         type: String,
+        required: true
+    },
+
+    endTime: {
+        type: String,
+        required: true
+    },
+
+    entrance: {
+        type: Number,
+        required: true
+    },
+
+    artists: {
+        type: Array,
+        required: true
+    },
+
+    genres: {
+        type: Array,
         required: true
     },
 
@@ -22,6 +47,10 @@ const eventSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true
+    },
+
+    imageUrl: {
+
     }
 }, {
     timestamps: true,

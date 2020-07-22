@@ -1,15 +1,18 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const News = require("../models/news")
+const News = require("../models/news");
 
-const { getAllNews, getNews, createNews } = require("../controllers/newsController")
+const {
+  getAllNews,
+  getNews,
+  createNews,
+  deleteNews,
+  updateNews,
+} = require("../controllers/newsController");
 
-router.route("/").get(getAllNews).post(createNews)
+router.route("/").get(getAllNews).post(createNews);
 
-router.route("/:nid").get(getNews).delete(async(req, res) => {
-    const result = await News.deleteOne({ _nid: req.params.id })
-    res.send(result)
-})
+router.route("/:nid").get(getNews).delete(deleteNews).patch(updateNews);
 
-module.exports = router
+module.exports = router;
