@@ -3,7 +3,7 @@ exports.deleteOne = (Model) => async (req, res) => {
 
   if (Model.modelName === "News") {
     filterObj._id = req.params.nid;
-  } else if (Model.modelName === "Events") {
+  } else if (Model.modelName === "Event") {
     filterObj._id = req.params.eid;
   } else if (Model.modelName === "Media") {
     filterObj._id = req.params.mid;
