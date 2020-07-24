@@ -14,7 +14,7 @@ exports.getUpcomingEvents = async (req, res) => {
     date: { $gt: new Date() },
   });
 
-  res.send(sortedByDate);
+  res.send(events);
   // "OrderDate" : { "$gt" : { "$date" : "2015-01-01"}}
 };
 
