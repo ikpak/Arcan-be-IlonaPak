@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-const { createUser } = require("../controllers/userController");
+const { createUser, getMyProfile } = require("../controllers/userController");
 const { loginRequired } = require("../middleware/auth");
 
 /* GET users listing. */
@@ -10,5 +10,7 @@ router
     res.send("respond with a resource");
   })
   .post("/", createUser);
+
+router.route("/admin").get(loginRequired, getMyProfile)
 
 module.exports = router;

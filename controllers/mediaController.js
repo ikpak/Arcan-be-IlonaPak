@@ -31,7 +31,7 @@ exports.createMedia = async (req, res) => {
   const { title, videoId } = req.body;
 
   try {
-    const media = await Media.create({ title, description, videoId });
+    const media = await Media.create({ title, videoId });
     res.status(201).json({
       status: "success",
       data: { media },

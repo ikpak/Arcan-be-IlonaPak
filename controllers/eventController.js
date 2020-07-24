@@ -4,7 +4,9 @@ const { deleteOne, updateOne } = require("./handlerFactory");
 exports.getAllEvents = async (req, res) => {
   const events = await Event.find(req.query);
 
-  res.send(events);
+  const sortedByDate = events.sort((a, b) => b.date - a.date);
+
+  res.send(sortedByDate);
 };
 
 exports.getUpcomingEvents = async (req, res) => {
@@ -25,9 +27,8 @@ exports.getPastEvents = async (req, res) => {
 exports.getEvent = async (req, res) => {
   let filterObj = {};
 
-  filterObj = req.params.eid;
-
   try {
+    filterObj._id = req.params.eid;
     const event = await Event.findOne(filterObj);
     res.status(201).json({
       status: "success",

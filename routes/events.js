@@ -18,6 +18,6 @@ router.route("/").get(getAllEvents).post(createEvent);
 router.route("/upcoming").get(getUpcomingEvents)
 router.route("/past").get(getPastEvents)
 
-router.route(":eid").get(getEvent).delete(deleteEvent).patch(updateEvent);
+router.route("/:eid").get(getEvent).delete(deleteEvent).patch(updateEvent);
 
 module.exports = router;
