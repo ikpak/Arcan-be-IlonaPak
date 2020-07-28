@@ -37,7 +37,7 @@ exports.updateOne = (Model) => async (req, res) => {
     filterObj._id = req.params.nid;
 
     allows = ["title", "category", "description", "imageUrl"];
-  } else if (Model.modelName === "Events") {
+  } else if (Model.modelName === "Event") {
     filterObj._id = req.params.eid;
 
     allows = [
@@ -57,7 +57,6 @@ exports.updateOne = (Model) => async (req, res) => {
 
     allows = ["title", "videoId"];
   }
-
   try {
     const doc = await Model.findOne(filterObj);
 
@@ -66,7 +65,6 @@ exports.updateOne = (Model) => async (req, res) => {
         doc[key] = req.body[key];
       }
     }
-
     await doc.save();
 
     if (!doc) {
@@ -74,12 +72,13 @@ exports.updateOne = (Model) => async (req, res) => {
         message: "This item was not found",
       });
     } else {
-      req.status(200).json({
+      res.status(200).json({
         status: "ok",
         data: doc,
       });
     }
   } catch (err) {
+    console.log("khoakhoa", err);
     res.status(400).json({
       status: "fail",
       message: err,

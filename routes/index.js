@@ -2,7 +2,10 @@ var express = require("express");
 var router = express.Router();
 const moment = require("moment");
 
+const Booking = require("../models/booking");
+
 const sgMail = require("@sendgrid/mail");
+const booking = require("../models/booking");
 
 function contactHtml(cat, name, mess) {
   let temp = `<!DOCTYPE html>
@@ -68,6 +71,7 @@ function bookHtml(
 router.post("/contact", function (req, res, next) {
   try {
     const { name, email, category, subject, message } = req.body;
+    console.log(process.env.SENDGRID_API_KEY);
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
       to: ["inkha.pak@gmail.com"],
@@ -83,7 +87,7 @@ router.post("/contact", function (req, res, next) {
   }
 });
 
-router.post("/book", function (req, res, next) {
+router.post("/book", async function (req, res, next) {
   try {
     const {
       name,
@@ -100,12 +104,27 @@ router.post("/book", function (req, res, next) {
       description,
     } = req.body;
 
+    const createNewBooking = await Booking.create({
+      name,
+      email,
+      phone,
+      organization,
+      pageUrl,
+      dateOne,
+      dateTwo,
+      startTime,
+      endTime,
+      capacity,
+      title,
+      description,
+    });
+
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
     const msg = {
       to: ["inkha.pak@gmail.com"],
       from: email,
-      subject: "Booking Request",
+      subject: `Booking Request: ${title}`,
       html: bookHtml(
         name,
         phone,
@@ -116,7 +135,6 @@ router.post("/book", function (req, res, next) {
         startTime,
         endTime,
         capacity,
-        title,
         description
       ),
     };
