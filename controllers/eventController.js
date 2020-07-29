@@ -2,17 +2,15 @@ const Event = require("../models/event");
 const { deleteOne, updateOne } = require("./handlerFactory");
 
 exports.getAllEvents = async (req, res) => {
-  const events = await Event.find(req.query);
+  const events = await Event.find(req.query).sort("date");
 
-  const sortedByDate = events.sort((a, b) => b.date - a.date);
-
-  res.send(sortedByDate);
+  res.send(events);
 };
 
 exports.getUpcomingEvents = async (req, res) => {
   const events = await Event.find({
     date: { $gt: new Date() },
-  });
+  }).sort("date");
 
   res.send(events);
   // "OrderDate" : { "$gt" : { "$date" : "2015-01-01"}}
@@ -21,11 +19,9 @@ exports.getUpcomingEvents = async (req, res) => {
 exports.getPastEvents = async (req, res) => {
   const events = await Event.find({
     date: { $lt: new Date() },
-  });
+  }).sort("-date");
 
-  const sortedByDate = events.sort((a, b) => b.date - a.date);
-
-  res.send(sortedByDate);
+  res.send(events);
 };
 
 exports.getEvent = async (req, res) => {

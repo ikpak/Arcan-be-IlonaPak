@@ -135,6 +135,7 @@ router.post("/book", async function (req, res, next) {
         startTime,
         endTime,
         capacity,
+        title,
         description
       ),
     };
