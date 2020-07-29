@@ -2,7 +2,7 @@ const Event = require("../models/event");
 const { deleteOne, updateOne } = require("./handlerFactory");
 
 exports.getAllEvents = async (req, res) => {
-  const events = await Event.find(req.query).sort("date");
+  const events = await Event.find(req.query).sort("-date");
 
   res.send(events);
 };
